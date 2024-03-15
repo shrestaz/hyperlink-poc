@@ -30,9 +30,16 @@ def add_hyperlink(paragraph, url, text):
     # Create a new w:rPr element
     rPr = OxmlElement('w:rPr')
 
+    r_style_element = OxmlElement("w:rStyle")
+    r_style_element.set(qn_shared("w:val"), "InternetLink")
+    rPr.append(r_style_element)
+
+    text_element = OxmlElement("w:t")
+    text_element.text = text
+
     # Join all the xml elements together add add the required text to the w:r element
     new_run.append(rPr)
-    new_run.text = text
+    new_run.append(text_element)
     hyperlink.append(new_run)
 
     paragraph._p.append(hyperlink)
